@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/extras/spring-security">
+<link rel="stylesheet" href="/Alquilerprogramacion4/src/main/resources/static/css/stilo1.css">
+<head th:replace="layouts/NewFile :: head">
+<meta charset="UTF-8">
+<title>Index</title>
+
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body class="prueba">
+<div sec:authorize="isAuthenticated()">
+<header class="encabezado">
+    <div>
+        <img src="/img/imagen1.png" alt="">
+    </div>
+    <h4 style="text-align: center; color: black;" ><strong>Bienvenido</strong> </h4>
+    <nav>
+        <ul class="funciones">
+        <li><a href="/Admin"><strong>Entrar como administrador</strong></a></li>
+        <li><a href="#"><strong>¿Quines somos?</strong></a></li>
+        <li><a href="/Vista"><strong>Mis Alquileres</strong></a></li>
+        <li><a href="/logout"><strong>Salir del sistema</strong></a> </li>    
+        </ul>
+    </nav>
+
+</header>
+</div>
+
+
+<div class="product" th:each="v:${vehiculos}" th:if="${v.estado==1}">
+<div class="datcar">
+<h1 style="float: left; margin-left: 30px; margin-top: 42px;">MARCA:</h1>
+<h1 style="float: right; margin-right: 30px;  margin-top: 42px;"th:text="${v.marca}"></h1>
+<h1 style="float: left; margin-left: 34px;">AÑO:</h1>
+<h1 style="float: right; margin-right: 50px;" th:text="${v.ano}"></h1>
+<h1 style="float: left; margin-left: 34px; position:relative;" >Modelo:</h1>
+<h1 style="float: right; margin-right: 42px;" th:text="${v.modelo}"></h1>
+</div>
+
+<div class="imgcar">
+<img th:src="@{'/imagenes/'+${v.imagen}}"  class="car">
+</div>
+
+
+<div class="precio">
+<ul class="linea2"></ul>
+</div>
+<h1 class="dd">
+<label th:text="${v.costoDiario}"></label>
+<label>$C/D</label>
+</h1>
+<a th:href="@{/llevardatos/}+${v.id_vehiculo}" ><div class="btnalq" style="color: black;"><strong>Ver Oferta</strong></div></a></div>
+
+</body>
+</html>

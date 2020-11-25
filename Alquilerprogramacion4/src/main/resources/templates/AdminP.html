@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:replace="layouts/NewFile :: head">
+  <link rel="stylesheet" href="/Alquilerprogramacion4/src/main/resources/static/css/stilo1.css">
+
+    <title >Perfil Administrador</title>
+</head>
+<body style="background-color: #d1cdcd;">
+    <header class="encabezado">
+        <div class="img">
+            <img src="/img/man.png" height="80" width="80">
+        </div>
+      <h4 style="color: black;"><strong>Administrador</strong></h4>
+       <div sec:authorize="isAuthenticated()"></div>
+        <nav >
+            <ul class="funciones">
+            <li><a  onclick="lista()" style="color: black;"><strong>Inicio</strong></a></li>
+                <li><a onclick="vehiculo()" style="color: black;"><strong>Agregar vehiculo</strong></a></li>
+                <li><a onclick="admin()"style="color: black;" ><strong>Agregar Administrador</strong></a></li>
+              <li><a href="/menu" style="color: black;"><strong>Salir del sistema</strong></a></li>
+            </ul>
+            
+        </nav>
+    </header>
+    <br>
+<script type="text/javascript" 
+src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+function lista(){
+	document.getElementById("divLista").style.display="block";
+	document.getElementById("divAgreV").style.display="none";
+	document.getElementById("divAdmin").style.display="none";
+	document.getElementById("divActu").style.display="none";
+	
+}
+</script>
+
+<script type="text/javascript">
+function vehiculo(){
+	document.getElementById("divAgreV").style.display="block";
+	document.getElementById("divLista").style.display="none";
+	document.getElementById("divAdmin").style.display="none";
+	document.getElementById("divActu").style.display="none";
+}
+</script>
+
+
+<script type="text/javascript">
+function admin(){
+	document.getElementById("divAdmin").style.display="block";
+	document.getElementById("divLista").style.display="none";
+	document.getElementById("divAgreV").style.display="none";
+	document.getElementById("divActu").style.display="none";
+}
+</script>
+<div id="divAdmin" style="display: none">
+        <div class="contact-wrapper">
+            <div class="contact-form"> <br>
+                <h3 align="center"> Regristar Admin</h3>
+                <form action="" method="post">
+                    <p>
+                        <label for="fullname">Nombre</label>
+                        <input type="text" name="nombre" required>
+                    </p>
+                    
+                    <p>
+                        <label for="">Apellido</label>
+                        <input type="text" name="apellido" required>
+                    </p>
+                    <p>
+                        <label for="">Correo</label>
+                        <input type="email" name="correo" required>
+                    </p>
+                    <p>
+                       <label for="">Contraseña</label> 
+                       <input type="password" name="password" required>
+                    </p>
+                    <p>
+                        <label for="">Dui</label>
+                       <input type="number" name="dui" required>
+                    </p>
+                    <p>
+                        <label for="">Direccion</label>
+                        <input type="text" name="dire" required>
+                    </p>
+                      <p>
+                        <label for="">Licencia</label>
+                       <input type="number" name="licencia" required>
+                    </p>
+                    <p class="block">
+                         <button type="submit" class="btn btn-success">Crear Registro</button>
+                    </p>                  
+                </form>
+            </div>
+        </div>
+</div>
+
+<div id="divLista" style="display: block">
+
+    <h2 style="text-align: center; color: black;"><strong>Vehiculos Disponibles</strong></h2>
+   <table class="table table-dark"  id="cabeza">
+  <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">año</th>
+            <th scope="col">Costo</th>
+            <th scope="col">Estado</th>
+            <th scope="col">marca</th>
+            <th scope="col">matricula</th>
+            <th scope="col">modelo</th>
+            <th scope="col">imagen</th>
+            <th scope="col">acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="v:${vehiculos}">
+            <td th:text="${v.id_vehiculo}"></td>
+            <td th:text="${v.ano}"></td>
+            <td th:text="${v.costoDiario}"></td>
+             <td th:text="${v.estado}"></td>
+            <td th:text="${v.marca}"></td>
+            <td  th:text="${v.matricula}"></td>
+            <td  th:text="${v.modelo}"></td>
+            <td><img class="car" th:src="@{'/imagenes/'+${v.imagen}}"></td>
+<td>
+<a th:onclick="edicion([[${v.id_vehiculo}]])" class="btn btn-success">Editar</a>
+<a th:href="@{/BorraVehiculo/}+${v.id_vehiculo}" class="btn btn-danger" >Eliminar</a>
+</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+
+
+<div id="divAgreV" style="display: none">
+<form  action="/CrearVehiculos" enctype="multipart/form-data" method="post">
+    <div class="registro" align ="center">
+      <marquee behavior="scroll" direction="left">REGISTRAR NUEVO VEHICULO - ALQUILERES_SV</marquee>
+    <div>
+    </div>
+    <div class="form-group">
+      
+      <input type="text" class="form-control"  placeholder="MARCA" name="marca" required="required">
+    </div>
+    <div class="form-group">
+       
+        <input type="text" class="form-control"  placeholder="MODELO" name="modelo" required>
+      </div>
+      <div class="form-group">
+        
+        <input type="text" class="form-control"  placeholder="MATRICULA" name="matricula" required>
+      </div>
+      <div class="form-group">
+      
+        <input type="text" class="form-control"  placeholder="AÑO" maxlength="4" name="anno" required>
+      </div>
+      <div class="form-group">
+        
+        <input type="text" class="form-control"  placeholder="COSTO DIARIO" name="costoDiario" required>
+      </div>
+      <div class="form-group">
+        <input type="file" class="form-control"  placeholder="URL" name="imagen" required>
+        
+      </div>
+       <button type="submit" class="btn btn-success">Crear Registro</button>
+    </div>
+  </form>
+</div>
+
+<div id="divActu" style="display: none">
+<form  action="/actualizar" method="post"  enctype="multipart/form-data">
+    <div class="registro" align ="center">
+      <marquee behavior="scroll" direction="left">ACTUALIZAR VEHICULO</marquee>
+      
+    <div>
+      <input type="number" class="form-control" id="id_vehiculo" placeholder="ID" name="id" hidden="" required> 
+    </div>
+    
+    <div class="form-group">
+      <input type="text" class="form-control" id="marca" placeholder="MARCA" name="marca" required>
+    </div>
+    
+    <div class="form-group">
+        <input type="text" class="form-control" id="modelo" placeholder="MODELO" name="modelo" required>
+      </div>
+      
+      <div class="form-group">
+        <input type="text" class="form-control" id="matricula" placeholder="MATRICULA" name="matricula" required>
+      </div>
+      
+      <div class="form-group">
+        <input type="text" class="form-control" id="ano" placeholder="AÑO" maxlength="4" name="anno" required>
+      </div>
+      
+      <div class="form-group">
+        <input type="text" class="form-control" id="costoDiario" placeholder="COSTO DIARIO" name="costoDiario" required>
+      </div>
+      
+      <div class="form-group">
+       <select class="comb" name="estado" id="estado" required>
+      <option value="1">Activo</option>
+      <option value="2">Desativado</option>
+       </select>
+      </div>
+      
+      <div class="form-group">
+        <input type="file" class="form-control" id="imagen" placeholder="URL" name="imagen" required>
+      </div>
+      
+       <button type="submit" class="btn btn-success">Actualizar Registro</button>
+    </div>
+  </form>
+</div>
+
+<script type="text/javascript">
+function edicion(id){
+	document.getElementById("divActu").style.display="block";
+	document.getElementById("divAgreV").style.display="none";
+	document.getElementById("divLista").style.display="none";
+	document.getElementById("divAdmin").style.display="none";
+	$.ajax({
+		url: "/llevar/"+id,
+		success: function(res){
+			console.log(res);
+			$("#id_vehiculo").val(res.id_vehiculo);
+			$("#marca").val(res.marca);
+			$("#modelo").val(res.modelo);
+			$("#matricula").val(res.matricula);
+			$("#costoDiario").val(res.costoDiario);
+			$("#ano").val(res.ano);
+			$("#estado").val(res.estado);
+			$("#imagen").val(res.imagen);
+		},
+		error: function(e){console.log(e);}
+	});
+}
+</script>
+</body>
+<footer>
+    <samp>Alquiler Copyright 2020 © </samp>
+</footer>
+</html>

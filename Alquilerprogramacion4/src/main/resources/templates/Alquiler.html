@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<title>alquiler</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body  style="background: #214252;
+    margin: auto;
+    font-family: Arial, Helvetica, sans-serif;">
+    
+    <header class="encabezado" style="align-items: center;
+    background-color: #214252;
+    text-align: center;
+    color: white;">
+<h1 style="text-align: center;">Datos</h1>
+</header>
+
+
+<div 
+style="position: absolute;
+height: 680px;
+width: 1100px;
+background: #FFFFFF;
+border-color: rgb(0, 0, 0);
+border:1px solid ;
+margin-left: 100px"> 
+<br>
+<form th:action="@{/CrearAlquiler} " method="post" modelAttribute="vehi"> 
+
+<div style="
+    float: left;
+    width: 500px;
+	height: 560px;
+	margin-left: 50px;
+	margin-top: 10px;
+	background-color: black;">
+	
+<input type="hidden" name="fkcl" required="required" th:value="${vehi2}">
+<input type="text" name="fkV" th:value="${vehi.id_vehiculo}" hidden>
+
+<img th:src="@{'/imagenes/'+${vehi.imagen}}" style="
+margin-left: 15px;
+width: 470px;
+	height: 560px;
+	background-color: white;"/><br>
+<input type="text" th:value="${vehi.imagen}" name="img" hidden>
+</div>
+
+
+<div style="
+    width: 500px;
+	height: 570px;
+	margin-left: 570px;
+	margin-top: 10px;
+	background-color: white;">
+	<br>
+	
+<p>
+<label for="fullname" style="margin-left: 100px">Marca:</label>
+<input type="text" name="marca" th:value="${vehi.marca}" hidden="" required>
+<input type="text" name="marca" th:value="${vehi.marca}" disabled="disabled" required style="margin-left: 90px"><br>
+</p>
+
+<p>
+<label for="fullname" style="margin-left: 100px">Modelo:</label>
+<input type="text" name="modelo" th:value="${vehi.modelo}" hidden="" required>
+<input type="text" name="modelo" th:value="${vehi.modelo}" disabled="disabled" required style="margin-left: 82px"><br>
+</p>
+
+<p>
+<label for="fullname" style="margin-left: 100px">Matricula:</label>
+<input type="text" name="matri" th:value="${vehi.matricula}" hidden="" required>
+<input type="text" name="matri" th:value="${vehi.matricula}" disabled="disabled" required style="margin-left: 70px"><br>
+</p>
+
+<p>
+<label for="fullname" style="margin-left: 100px">Costo Diario:</label>
+<input type="text" name="cost" th:value="${vehi.costoDiario}" required hidden="">
+<input type="text" name="cost" th:value="${vehi.costoDiario}" required id="numero1" 
+disabled="disabled" onchange="multiplicacion(this.value);" style="margin-left: 45px"><br>
+</p>
+
+<p>
+<label for="fullname" style="margin-left: 100px">Año del auto:</label>
+<input type="text" name="ano" th:value="${vehi.ano}" hidden="" required>
+<input type="text" name="ano" th:value="${vehi.ano}" disabled="disabled" required style="margin-left: 45px"><br>
+</p>
+
+<p>
+<label for="fullname" style="margin-left: 100px">Fecha de entrega:</label>
+<input type="text" required id="TFecha_inicio" placeholder="dd/mm/aaaa" name="fechaE" style="margin-left: 10px" ><br>
+</p>
+
+<p>
+<label for="fullname" style="margin-left: 100px">Telefono:</label>
+<input type="number" required="required" name="telefono" maxlength="8" style="margin-left: 75px"><br>
+</p>
+
+<p>
+<label for="fullname" style="margin-left: 100px">Galones de Gasolina:</label>
+<input type="number" value="0" required="required" max="20" min="0" name="galones" ><br>
+</p>
+
+<p>
+<label for="fullname" style="margin-left: 100px">Numero de Dias:</label>
+<input type="number" value="1" required="required" max="10" min="1" class="item"  
+onchange="multiplicacion(this.value);" id="TNum_diasAfectar" name="dias" 
+placeholder="Nº de días" style="margin-left: 35px"><br>
+</p>
+
+<p>
+<label for="fullname" style="margin-left: 100px">Color del auto:</label>
+<select required="" name="color" style="margin-left: 32px; width: 100px; height: 26px"> 
+	<option  style="background: #FD0000;">ROJO</option>
+	<option  style="background: #0BFD00;">VERDE</option>
+	<option  style="background: #000BFC;">AZUL</option>
+	<option  style="background: #FC00F1;">MAGENTA</option>
+	<option  style="background: #FCF800;">AMARILLO</option>
+	<option  style="background: #00E9FC;">CIAN</option>
+	<option  style="background: #FFFFFF;">BLANCO</option>
+	<option  style="background: #000000;">NEGRO</option>
+</select><br>
+<input type="text" id="Resultado"  name="fechaC" hidden="" required> 
+</p>
+
+<p>
+<span for="fullname" style="margin-left: 100px">El TOTAL ES:
+<input type="text" id="Total" name="total"  value="0" hidden th:value="${vehi.costoDiario}" required >
+</span> <input type="text" id="Total2" disabled value="0" th:value="${vehi.costoDiario}" required 
+style="margin-left: 38px; width: 100px;"><span style="color: black;">$</span><br>
+</p>
+
+</div>
+
+<div class="content" style="margin-left: 60px;">
+        <div class="contact-wrapper">
+            <div class="contact-form"> <br>
+<button onclick="multiplicacion()"  id="Calcular2"  class="btn btn-success" 
+style="width: 500px; 
+height: 40px; 
+margin-left: 1px;"> 
+<h3 style="color: #000000;">Alquilar</h3></button>
+ 
+
+<a class="btn btn-danger" href="/menu"
+style="width: 500px; 
+height: 40px; 
+margin-left: 1px;" > <h3 style="color: #000000;">Cancelar</h3>    </a>
+
+         </div>
+        </div>
+    </div>
+</form>
+</div>
+
+<script>
+function multiplicacion(valor) {
+	$("#divbotones").removeAttr("hidden");
+   var numero1 = Number($("#numero1").val());
+   var numero2 = Number($("#TNum_diasAfectar").val());
+   var sumar = numero1 * numero2;
+   var resultado = $("#Total").val(sumar);
+   var resultado = $("#Total2").val(sumar);
+}
+</script>
+<script type="text/javascript">
+	window.onload = function(){
+  var fecha = new Date(); //Fecha actual
+  var mes = fecha.getMonth()+1; //obteniendo mes
+  var dia = fecha.getDate(); //obteniendo dia
+  var ano = fecha.getFullYear(); //obteniendo año
+  if(dia<10)
+    dia='0'+dia; //agrega cero si el menor de 10
+  if(mes<10)
+    mes='0'+mes //agrega cero si el menor de 10
+  document.getElementById('TFecha_inicio').value=dia+"/"+mes+"/"+ano;
+}
+</script>
+<script type="text/javascript">
+	function FCalculo_termino(){       
+    var fecha_inicio = $('#TFecha_inicio').val();
+    var dias = $('#TNum_diasAfectar').val();
+    var dateparts = fecha_inicio.split('/').map(d => parseInt(d));
+    if (dateparts.length !== 3 || !dateparts.every(d => !isNaN(d))){
+    	 var resultado = $("#Resultado").val('');
+        var resultado = $("#Resultado1").val('');
+      return;
+    }
+    var fechaDate = new Date(dateparts[2], dateparts[1]-1, dateparts[0]);
+    
+    var diasNum = parseInt(dias);
+    if (isNaN(diasNum)){
+    	 $('#Resultado').text('');
+      $('#Resultado1').text('');
+    }
+    
+    fechaDate.setDate(fechaDate.getDate() + diasNum);
+    var resultado = $("#Resultado").val(fechaDate.toLocaleDateString());
+    var resultado = $("#Resultado1").val(fechaDate.toLocaleDateString());
+
+}
+	$(function(){
+		  $('#Calcular').click(FCalculo_termino);
+
+		});
+	
+$(function(){
+ $("#Calcular2").click(FCalculo_termino);
+ 
+});
+</script>
+</body>
+</html>
