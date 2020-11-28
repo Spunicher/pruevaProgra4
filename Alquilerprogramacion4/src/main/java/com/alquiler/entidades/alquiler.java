@@ -23,12 +23,13 @@ public class alquiler {
 	private int estado;
 	private int numero_dias;
 	private String fecha_entrega;
-	private String fecha_recibido;
+	private Date fecha_recibido;
 	private int galonesInicio;
 	private String Color;
 	private int telefono;
 	private double total;
 	private Date fechaDCompra;
+	private double cargo;
 	
 	@JoinColumn(name = "fkCliente")
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -38,13 +39,10 @@ public class alquiler {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private vehiculo fkVehiculo;
 
-   
-
-
+	
 	public int getId_alquiler() {
 		return id_alquiler;
 	}
-
 
 
 	public void setId_alquiler(int id_alquiler) {
@@ -52,11 +50,9 @@ public class alquiler {
 	}
 
 
-
 	public int getEstado() {
 		return estado;
 	}
-
 
 
 	public void setEstado(int estado) {
@@ -64,11 +60,9 @@ public class alquiler {
 	}
 
 
-
 	public int getNumero_dias() {
 		return numero_dias;
 	}
-
 
 
 	public void setNumero_dias(int numero_dias) {
@@ -76,11 +70,9 @@ public class alquiler {
 	}
 
 
-
 	public String getFecha_entrega() {
 		return fecha_entrega;
 	}
-
 
 
 	public void setFecha_entrega(String fecha_entrega) {
@@ -88,17 +80,14 @@ public class alquiler {
 	}
 
 
-
-	public String getFecha_recibido() {
+	public Date getFecha_recibido() {
 		return fecha_recibido;
 	}
 
 
-
-	public void setFecha_recibido(String fecha_recibido) {
+	public void setFecha_recibido(Date fecha_recibido) {
 		this.fecha_recibido = fecha_recibido;
 	}
-
 
 
 	public int getGalonesInicio() {
@@ -106,11 +95,9 @@ public class alquiler {
 	}
 
 
-
 	public void setGalonesInicio(int galonesInicio) {
 		this.galonesInicio = galonesInicio;
 	}
-
 
 
 	public String getColor() {
@@ -118,11 +105,9 @@ public class alquiler {
 	}
 
 
-
 	public void setColor(String color) {
 		Color = color;
 	}
-
 
 
 	public int getTelefono() {
@@ -130,11 +115,9 @@ public class alquiler {
 	}
 
 
-
 	public void setTelefono(int telefono) {
 		this.telefono = telefono;
 	}
-
 
 
 	public double getTotal() {
@@ -142,11 +125,9 @@ public class alquiler {
 	}
 
 
-
 	public void setTotal(double total) {
 		this.total = total;
 	}
-
 
 
 	public Date getFechaDCompra() {
@@ -154,11 +135,19 @@ public class alquiler {
 	}
 
 
-
 	public void setFechaDCompra(Date fechaDCompra) {
 		this.fechaDCompra = fechaDCompra;
 	}
 
+
+	public double getCargo() {
+		return cargo;
+	}
+
+
+	public void setCargo(double cargo) {
+		this.cargo = cargo;
+	}
 
 
 	public Usuario getFkCliente() {
@@ -166,11 +155,9 @@ public class alquiler {
 	}
 
 
-
 	public void setFkCliente(Usuario fkCliente) {
 		this.fkCliente = fkCliente;
 	}
-
 
 
 	public vehiculo getFkVehiculo() {
@@ -178,17 +165,14 @@ public class alquiler {
 	}
 
 
-
 	public void setFkVehiculo(vehiculo fkVehiculo) {
 		this.fkVehiculo = fkVehiculo;
 	}
 
 
-
-
-	public alquiler(int id_alquiler, int estado, int numero_dias, String fecha_entrega, String fecha_recibido,
-			int galonesInicio, String color, int telefono, double total, Date fechaDCompra, Usuario fkCliente,
-			vehiculo fkVehiculo) {
+	public alquiler(int id_alquiler, int estado, int numero_dias, String fecha_entrega, Date fecha_recibido,
+			int galonesInicio, String color, int telefono, double total, Date fechaDCompra, double cargo,
+			Usuario fkCliente, vehiculo fkVehiculo) {
 		this.id_alquiler = id_alquiler;
 		this.estado = estado;
 		this.numero_dias = numero_dias;
@@ -199,13 +183,14 @@ public class alquiler {
 		this.telefono = telefono;
 		this.total = total;
 		this.fechaDCompra = fechaDCompra;
+		this.cargo = cargo;
 		this.fkCliente = fkCliente;
 		this.fkVehiculo = fkVehiculo;
 	}
-	
-	public alquiler( int estado, int numero_dias, String fecha_entrega, String fecha_recibido,
-			int galonesInicio, String color, int telefono, double total, Date fechaDCompra, Usuario fkCliente,
-			vehiculo fkVehiculo) {
+
+	public alquiler( int estado, int numero_dias, String fecha_entrega, Date fecha_recibido,
+			int galonesInicio, String color, int telefono, double total, Date fechaDCompra, double cargo,
+			Usuario fkCliente, vehiculo fkVehiculo) {
 		this.estado = estado;
 		this.numero_dias = numero_dias;
 		this.fecha_entrega = fecha_entrega;
@@ -215,12 +200,10 @@ public class alquiler {
 		this.telefono = telefono;
 		this.total = total;
 		this.fechaDCompra = fechaDCompra;
+		this.cargo = cargo;
 		this.fkCliente = fkCliente;
 		this.fkVehiculo = fkVehiculo;
 	}
-
-
-
 	public alquiler() {
 	}
 

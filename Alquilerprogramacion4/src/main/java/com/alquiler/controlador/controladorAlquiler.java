@@ -1,7 +1,7 @@
 package com.alquiler.controlador;
 import java.security.Principal;
 import java.util.Date;
-
+import java.text.SimpleDateFormat;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -69,13 +69,16 @@ public class controladorAlquiler {
 			   @RequestParam(value = "telefono")int telefono,
 			   @RequestParam(value = "total")double total,
 			   @RequestParam(value = "fkcl")int fkcl,
-			   @RequestParam(value = "fkV")int fkV)throws ParseException  {
+			   @RequestParam(value = "fkV")int fkV)throws ParseException, java.text.ParseException  {
 	alquiler a = new alquiler();
 	Date date = new Date();
+	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	Date date1 = formatter.parse(fechaC);
+	System.out.println(date1);
 	a.setColor(color);
 	a.setEstado(1); 
 	a.setFecha_entrega(fechaE);
-	a.setFecha_recibido(fechaC);
+	a.setFecha_recibido(date1);
 	a.setFechaDCompra(date);
 	a.setFkCliente(repoU.findById(fkcl).get());
 	a.setFkVehiculo(repoV.findById(fkV).get());
@@ -83,6 +86,7 @@ public class controladorAlquiler {
 	a.setNumero_dias(dias);
 	a.setTelefono(telefono);
 	a.setTotal(total);
+	a.setCargo(0.0);
     repoA.save(a);
 		  
 		  vehiculo h = new vehiculo();
